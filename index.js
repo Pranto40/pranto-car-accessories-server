@@ -20,6 +20,7 @@ async function run () {
         await client.connect();
         const toolCollection = client.db('pranto-car-accessories').collection('tools');
         const bookingCollection = client.db('pranto-car-accessories').collection('bookings');
+        const userCollection = client.db('pranto-car-accessories').collection('users');
 
         // all tools
         app.get('/tools', async (req, res) => {
@@ -47,6 +48,19 @@ async function run () {
             const query = {userEmail: userEmail};
             const result = await bookingCollection.find(query).toArray();
             res.send(result) 
+        })
+
+        // user email 
+        app.put('/user/:email', async (req, res) => {
+            const email = req.params.email;
+            const user = req.body;
+            const filter = {email: email};
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: user,
+            };
+            const result = await userCollection.updateOne(filter, updateDoc, options);
+            res.send(result)
         })
 
     }
