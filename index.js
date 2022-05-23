@@ -41,6 +41,14 @@ async function run () {
             const result = await bookingCollection.insertOne(purchase);
             res.send(result)
         })
+        // single user order
+        app.get('/purchase', async (req, res) => {
+            const userEmail = req.query.userEmail;
+            const query = {userEmail: userEmail};
+            const result = await bookingCollection.find(query).toArray();
+            res.send(result) 
+        })
+
     }
     finally {
 
