@@ -19,6 +19,7 @@ async function run () {
     try{
         await client.connect();
         const toolCollection = client.db('pranto-car-accessories').collection('tools');
+        const bookingCollection = client.db('pranto-car-accessories').collection('bookings');
 
         // all tools
         app.get('/tools', async (req, res) => {
@@ -33,6 +34,12 @@ async function run () {
             const query = {_id: ObjectId(id)};
             const tool = await toolCollection.findOne(query);
             res.send(tool)
+        })
+        // post
+        app.post('/purchase', async (req, res) => {
+            const purchase = req.body;
+            const result = await bookingCollection.insertOne(purchase);
+            res.send(result)
         })
     }
     finally {
