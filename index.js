@@ -43,6 +43,7 @@ async function run () {
         const userCollection = client.db('pranto-car-accessories').collection('users');
         const paymentCollection = client.db('pranto-car-accessories').collection('payments');
         const reviewCollection = client.db('pranto-car-accessories').collection('reviews');
+        const profileCollection = client.db('pranto-car-accessories').collection('profiles');
 
         // all tools
         app.get('/tools', async (req, res) => {
@@ -176,7 +177,7 @@ async function run () {
             res.send(updatedBooking)
         })
 
-        // 
+        // review 
         app.post('/review', async (req, res) => {
             const review = req.body;
             const result = await reviewCollection.insertOne(review);
@@ -186,6 +187,18 @@ async function run () {
             const reviews = await reviewCollection.find().toArray();
             res.send(reviews)
         })
+
+        // Profile
+        app.post('/profile', async (req, res) => {
+            const review = req.body;
+            const result = await profileCollection.insertOne(review);
+            res.send(result)
+        })
+        app.get('/profile', async (req, res) => {
+            const reviews = await profileCollection.find().toArray();
+            res.send(reviews)
+        })
+
 
     }
     finally {
