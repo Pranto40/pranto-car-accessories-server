@@ -52,6 +52,21 @@ async function run () {
             const tools = await cursor.toArray();
             res.send(tools);
         })
+        // add product
+        app.post('/tools', async (req, res) => {
+            const purchase = req.body;
+            const result = await toolCollection.insertOne(purchase);
+            res.send(result)
+        })
+
+         // delete item
+         app.delete('/tools/:id', async(req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const result = await toolCollection.deleteOne(query);
+            res.send(result);
+        });
+
         // single tool details
         app.get('/tools/:id', async (req, res) => {
             const id = req.params.id;
