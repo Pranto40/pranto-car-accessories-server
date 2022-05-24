@@ -77,6 +77,14 @@ async function run () {
             }
         })
 
+          // delete order
+          app.delete('/purchase/:id', async(req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const result = await bookingCollection.deleteOne(query);
+            res.send(result);
+        });
+
         // user email 
         app.put('/user/:email', async (req, res) => {
             const email = req.params.email;
@@ -113,6 +121,13 @@ async function run () {
                 return res.status(403).send({message: 'Forbidden'})
             }
         })
+        // admin delete
+        app.delete('/user/admin/:id', async(req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const result = await userCollection.deleteOne(query);
+            res.send(result);
+        });
 
         // if user is not admin
         app.get('/admin/:email', async(req, res) => {
