@@ -94,13 +94,6 @@ async function run () {
             }
         })
 
-          // delete order
-          app.delete('/purchase/:id', async(req, res) => {
-            const id = req.params.id;
-            const query = {_id: ObjectId(id)};
-            const result = await bookingCollection.deleteOne(query);
-            res.send(result);
-        });
 
         // user email 
         app.put('/user/:email', async (req, res) => {
@@ -175,6 +168,14 @@ async function run () {
                 clientSecret: paymentIntent.client_secret,
             })
         })
+
+         // delete order
+         app.delete('/purchase/:id', async(req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const result = await bookingCollection.deleteOne(query);
+            res.send(result);
+        });
 
         app.patch('/purchase/:id', async (req, res) => {
             const id = req.params.id;
