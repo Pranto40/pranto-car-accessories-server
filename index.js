@@ -213,6 +213,22 @@ async function run () {
             const reviews = await profileCollection.find().toArray();
             res.send(reviews)
         })
+        app.put('/profile/:id', async (req, res) => {
+            const email = req.params.email;
+            const data = req.body;
+            const filter = {email: email};
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    education: data.education,
+                    location: data.location,
+                    phoneNumber: data.phoneNumber,
+                    hobbies: data.hobbies
+                },
+            };
+            const result = await profileCollection.updateOne(filter, updateDoc, options);
+            res.send(result)
+        })
 
 
     }
