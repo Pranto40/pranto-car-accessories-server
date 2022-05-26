@@ -214,7 +214,7 @@ async function run () {
             const reviews = await profileCollection.find().toArray();
             res.send(reviews)
         })
-        app.put('/profile/:id', async (req, res) => {
+        app.put('/profile/:email', async (req, res) => {
             const email = req.params.email;
             const data = req.body;
             const filter = {email: email};
