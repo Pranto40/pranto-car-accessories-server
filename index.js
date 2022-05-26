@@ -205,11 +205,6 @@ async function run () {
         })
 
         // Profile
-        app.post('/profile', async (req, res) => {
-            const review = req.body;
-            const result = await profileCollection.insertOne(review);
-            res.send(result)
-        })
         app.get('/profile', async (req, res) => {
             const reviews = await profileCollection.find().toArray();
             res.send(reviews)
@@ -228,6 +223,11 @@ async function run () {
                 },
             };
             const result = await profileCollection.updateOne(filter, updateDoc, options);
+            res.send(result)
+        })
+        app.post('/profile', async (req, res) => {
+            const review = req.body;
+            const result = await profileCollection.insertOne(review);
             res.send(result)
         })
 
