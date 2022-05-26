@@ -214,10 +214,10 @@ async function run () {
             const reviews = await profileCollection.find().toArray();
             res.send(reviews)
         })
-        app.put('/profile/:email', async (req, res) => {
-            const email = req.params.email;
+        app.put('/profile/:id', async (req, res) => {
+            const id = req.params.id;
             const data = req.body;
-            const filter = {email: email};
+            const filter = {_id: ObjectId(id)};
             const options = { upsert: true };
             const updateDoc = {
                 $set: {
